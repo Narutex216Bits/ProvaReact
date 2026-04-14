@@ -1,16 +1,73 @@
-# React + Vite
+🎬 Catálogo de Filmes e Séries
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação web desenvolvida em **React + Vite** para cadastro e exibição de filmes e séries.  
+Projeto criado como atividade acadêmica com foco nos fundamentos do React: componentes, estado (`useState`) e renderização de listas com `.map()`.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+🚀 Tecnologias Utilizadas
 
-## React Compiler
+- [React](https://react.dev/) 18+
+- [Vite](https://vitejs.dev/)
+- JavaScript (ES6+)
+- HTML5 & CSS3
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+📋 Pré‑requisitos
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Node.js** versão `22.17.0` ou superior (versão utilizada no desenvolvimento).
+- Gerenciador de pacotes **npm** (já incluso no Node).
+
+Para verificar sua versão do Node:
+```bash
+node -v
+
+🔧 Instalação e Execução
+
+1.Clone o repositório:
+
+  git clone https://github.com/seu-usuario/seu-repositorio.git
+  cd seu-repositorio
+
+2.Instale as dependências:
+
+  npm install
+
+3.Execute o projeto em modo de desenvolvimento:
+
+  npm run dev
+
+4.Acesse a aplicação no navegador:
+  
+  👉 http://localhost:5173
+
+🧱 Estrutura do Projeto
+
+src/
+├── components/
+│   ├── StatusBar.jsx     # Cabeçalho com título da aplicação
+│   ├── Footer.jsx        # Rodapé com nome do autor e data
+│   ├── MovieForm.jsx     # Formulário para adicionar filmes/séries
+│   └── MovieList.jsx     # Listagem dos itens cadastrados
+├── App.jsx               # Componente principal (gerencia o estado)
+├── App.css               # Estilos globais
+└── main.jsx              # Ponto de entrada da aplicação
+
+📦 Scripts Disponíveis
+
+    npm run dev – inicia o servidor de desenvolvimento com Hot Module Replacement.
+
+    npm run build – gera a versão de produção na pasta dist.
+
+    npm run preview – serve localmente a versão compilada.
+
+
+📄 Licença
+
+Este projeto está licenciado sob os termos da GNU General Public License v3.0.
+Consulte o arquivo LICENSE para mais detalhes.
+
+✍️ Autor
+
+Desenvolvido por Marcio Henrique de Tulio – estudante e entusiasta de desenvolvimento web.
