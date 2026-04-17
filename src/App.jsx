@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useAuth } from './context/AuthContext.jsx'
+import LoginPage from './pages/LoginPage.jsx'
 import StatusBar from './components/StatusBar.jsx'
 import Footer from './components/Footer.jsx'
 import MovieForm from './components/MovieForm.jsx'
@@ -9,78 +11,115 @@ const mainStyle = {
   maxWidth: '1100px',
   margin: '0 auto',
   width: '100%',
-  padding: '40px 24px',
+  padding: '36px 24px',
 }
 
 const filterBarStyle = {
   display: 'flex',
-  gap: '8px',
+  gap: '7px',
   flexWrap: 'wrap',
-  marginBottom: '32px',
+  marginBottom: '28px',
 }
 
 const filterBtnStyle = (active) => ({
   background: active ? '#e8c84a' : 'transparent',
   color: active ? '#0a0a0f' : '#8a8680',
-  border: `1px solid ${active ? '#e8c84a' : 'rgba(232, 200, 74, 0.2)'}`,
+  border: `1px solid ${active ? '#e8c84a' : 'rgba(232,200,74,0.2)'}`,
   borderRadius: '5px',
-  padding: '5px 14px',
-  fontSize: '11px',
+  padding: '5px 13px',
+  fontSize: '10px',
   letterSpacing: '1.5px',
-  fontFamily: 'var(--font-display)',
+  fontFamily: 'Bebas Neue, sans-serif',
   cursor: 'pointer',
   transition: 'all 0.15s',
 })
 
-const FILTROS = ['Todos', 'Filme', 'Série', 'Ação', 'Comédia', 'Drama', 'Horror', 'Romance', 'Ficção Científica']
+const userBarStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  gap: '12px',
+  padding: '8px 24px',
+  borderBottom: '1px solid rgba(232,200,74,0.08)',
+  background: '#0d0d14',
+}
 
-const FILMES_INICIAIS = [
-  { id: 1, nome: 'Oppenheimer', genero: 'Drama', tipo: 'Filme', ano: '2023', nota: '9.0' },
-  { id: 2, nome: 'Breaking Bad', genero: 'Drama', tipo: 'Série', ano: '2008', nota: '9.5' },
-  { id: 3, nome: 'Interstellar', genero: 'Ficção Científica', tipo: 'Filme', ano: '2014', nota: '9.3' },
-]
+const emailStyle = {
+  fontSize: '11px',
+  color: '#8a8680',
+  letterSpacing: '0.5px',
+}
 
-export default function App() {
-  const [filmes, setFilmes] = useState(FILMES_INICIAIS)
+const btnLogout = {
+  background: 'transparent',
+  border: '1px solid rgba(255,107,74,0.35)',
+  borderRadius: '4px',
+  color: '#ff6b4a',
+  fontSize: '10px',
+  letterSpacing: '1.5px',
+  padding: '4px 12px',
+  fontFamily: 'Bebas Neue, sans-serif',
+  cursor: 'pointer',
+}
+
+const FILTROS = ['Todos','Filme','Série','Ação','Comédia','Drama','Horror','Ficção Científica','Animação']
+
+function AppAutenticado() {
+  const { user, logout } = useAuth()
   const [filtro, setFiltro] = useState('')
-
-  function adicionarFilme(filme) {
-    setFilmes(prev => [filme, ...prev])
-  }
-
-  function removerFilme(id) {
-    setFilmes(prev => prev.filter(f => f.id !== id))
-  }
 
   return (
     <>
       <StatusBar />
+      <div style={userBarStyle}>
+        <span style={emailStyle}>{user.email}</span>
+        <button
+          style={btnLogout}
+          onClick={logout}
+          onMouseEnter={e => e.target.style.background='rgba(255,107,74,0.1)'}
+          onMouseLeave={e => e.target.style.background='transparent'}
+        >
+          SAIR
+        </button>
+      </div>
       <main style={mainStyle}>
-        <MovieForm onAdd={adicionarFilme} />
-
+        <MovieForm />
         <div style={filterBarStyle}>
-          {FILTROS.map(f => (
-            <button
-              key={f}
-              style={filterBtnStyle(filtro === (f === 'Todos' ? '' : f))}
-              onClick={() => setFiltro(f === 'Todos' ? '' : f)}
-              onMouseEnter={e => {
-                if (filtro !== (f === 'Todos' ? '' : f))
-                  e.target.style.borderColor = 'rgba(232, 200, 74, 0.5)'
-              }}
-              onMouseLeave={e => {
-                if (filtro !== (f === 'Todos' ? '' : f))
-                  e.target.style.borderColor = 'rgba(232, 200, 74, 0.2)'
-              }}
-            >
-              {f.toUpperCase()}
-            </button>
-          ))}
+          {FILTROS.map(f => {
+            const val = f === 'Todos' ? '' : f
+            return (
+              <button
+                key={f}
+                style={filterBtnStyle(filtro === val)}
+                onClick={() => setFiltro(val)}
+              >
+                {f.toUpperCase()}
+              </button>
+            )
+          })}
         </div>
-
-        <MovieList filmes={filmes} onRemove={removerFilme} filtro={filtro} />
+        <MovieList filtro={filtro} />
       </main>
       <Footer />
     </>
   )
+}
+
+export default function App() {
+  const { user, loading } = useAuth()
+
+  if (loading) {
+    return (
+      <div style={{
+        minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center',
+        background:'#0a0a0f', fontFamily:'Bebas Neue, sans-serif',
+        fontSize:'18px', letterSpacing:'4px', color:'#e8c84a',
+      }}>
+        CARREGANDO...
+      </div>
+    )
+  }
+
+  if (!user) return <LoginPage />
+  return <AppAutenticado />
 }

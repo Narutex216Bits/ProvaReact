@@ -1,73 +1,34 @@
-🎬 Catálogo de Filmes e Séries
+# Catálogo de Filmes e Séries — v2 (Firebase)
 
-Aplicação web desenvolvida em **React + Vite** para cadastro e exibição de filmes e séries.  
-Projeto criado como atividade acadêmica com foco nos fundamentos do React: componentes, estado (`useState`) e renderização de listas com `.map()`.
+Aplicação React + Vite com Firebase Authentication + Firestore.
 
----
+## PASSO 1 — Configure o Firebase
 
-🚀 Tecnologias Utilizadas
+1. Acesse https://console.firebase.google.com
+2. Selecione seu projeto → Configurações → Seus Apps → Web
+3. Copie o firebaseConfig e cole em src/firebase.js
 
-- [React](https://react.dev/) 18+
-- [Vite](https://vitejs.dev/)
-- JavaScript (ES6+)
-- HTML5 & CSS3
+## PASSO 2 — Habilite Authentication
 
----
+No Firebase Console:
+- Authentication → Sign-in method → Ativar E-mail/senha
 
-📋 Pré‑requisitos
+## PASSO 3 — Índice no Firestore
 
-- **Node.js** versão `22.17.0` ou superior (versão utilizada no desenvolvimento).
-- Gerenciador de pacotes **npm** (já incluso no Node).
+Na primeira execução, o console do navegador mostrará um link para criar
+o índice composto necessário (uid ASC + criadoEm DESC). Clique e confirme.
 
-Para verificar sua versão do Node:
-```bash
-node -v
-
-🔧 Instalação e Execução
-
-1.Clone o repositório:
-
-  git clone https://github.com/seu-usuario/seu-repositorio.git
-  cd seu-repositorio
-
-2.Instale as dependências:
+## PASSO 4 — Rodar
 
   npm install
-
-3.Execute o projeto em modo de desenvolvimento:
-
   npm run dev
 
-4.Acesse a aplicação no navegador:
-  
-  👉 http://localhost:5173
+Acesse: http://localhost:5173
 
-🧱 Estrutura do Projeto
+## Estrutura Firestore
 
-src/
-├── components/
-│   ├── StatusBar.jsx     # Cabeçalho com título da aplicação
-│   ├── Footer.jsx        # Rodapé com nome do autor e data
-│   ├── MovieForm.jsx     # Formulário para adicionar filmes/séries
-│   └── MovieList.jsx     # Listagem dos itens cadastrados
-├── App.jsx               # Componente principal (gerencia o estado)
-├── App.css               # Estilos globais
-└── main.jsx              # Ponto de entrada da aplicação
+Coleção: filmes
+Campos: nome, genero, tipo, ano, nota, uid, email, criadoEm
 
-📦 Scripts Disponíveis
-
-    npm run dev – inicia o servidor de desenvolvimento com Hot Module Replacement.
-
-    npm run build – gera a versão de produção na pasta dist.
-
-    npm run preview – serve localmente a versão compilada.
-
-
-📄 Licença
-
-Este projeto está licenciado sob os termos da GNU General Public License v3.0.
-Consulte o arquivo LICENSE para mais detalhes.
-
-✍️ Autor
-
-Desenvolvido por Marcio Henrique de Tulio – estudante e entusiasta de desenvolvimento web.
+---
+Marcio Henrique de Tulio | v2 Firebase — 17/04/2026
